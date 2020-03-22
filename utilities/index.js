@@ -1,5 +1,5 @@
 const Debug = require('./debug');
 
 module.exports = {
-    Debug: Debug
-}
+  Debug: Debug
+};

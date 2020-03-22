@@ -1,14 +1,15 @@
 import React from 'react';
 import AppTemplate from './templates/AppTemplate';
-import ProductList from './components/ProductList';
+import { Provider } from 'react-redux';
+import { store } from './redux';
+import ProductListContainer from './containers/ProductListContainer';
 
-
-function App() {
-  return (
+const App = () => (
+  <Provider store={store}>
     <AppTemplate>
-      <ProductList />
+      <ProductListContainer />
     </AppTemplate>
-  );
-}
+  </Provider>
+);
 
 export default App;
