@@ -1,14 +1,22 @@
-import { put } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import contentfulDeliveryClient from '../../services/contentfulClient';
-import { getProductsSuccess } from '../actions/products';
+import { getProductsSuccess, getProductsError } from '../actions/products';
 import { filterProductsData } from '../../utilities/contentful';
 
-export function* getProductsSaga(action) {
-  const entries = yield contentfulDeliveryClient.getEntries({
-    content_type: 'product',
-  });
+export function* getProductsSaga({ payload }) {
+  try {
+    const { category } = payload;
 
-  const products = filterProductsData(entries.items);
+    console.log('category: ', category);
 
-  yield put(getProductsSuccess({ products }));
+    const entries = yield call([contentfulDeliveryClient, contentfulDeliveryClient.getEntries], {
+      content_type: 'product',
+    });
+
+    const products = filterProductsData(entries.items);
+
+    yield put(getProductsSuccess(products));
+  } catch (error) {
+    yield put(getProductsError(error));
+  }
 }

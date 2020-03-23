@@ -4,16 +4,20 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers';
 import { watchProducts } from './sagas';
 
-const initialState = {};
-const sagaMiddleware = createSagaMiddleware();
-const middleware = [sagaMiddleware];
+const configureStore = () => {
+  const initialState = {};
+  const sagaMiddleware = createSagaMiddleware();
+  const middleware = [sagaMiddleware];
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  composeWithDevTools(applyMiddleware(...middleware)),
-);
+  const store = createStore(
+    rootReducer,
+    initialState,
+    composeWithDevTools(applyMiddleware(...middleware)),
+  );
 
-sagaMiddleware.run(watchProducts);
+  sagaMiddleware.run(watchProducts);
 
-export { store };
+  return store;
+};
+
+export { configureStore };

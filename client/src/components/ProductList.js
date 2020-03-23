@@ -16,13 +16,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ProductList = ({ products, isLoading, getProducts }) => {
-  // const [products, setProducts] = useState([]);
+const ProductList = ({ products, isLoading }) => {
   const classes = useStyles();
-
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   return (
     <div className={classes.root}>
