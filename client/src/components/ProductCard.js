@@ -37,9 +37,9 @@ const useStyles = makeStyles(theme => ({
 
 const ProductCard = ({ name, description, price, image }) => {
   const classes = useStyles();
-  
+
   return (
-    <Card className={classes.root} >
+    <Card className={classes.root}>
       <CardHeader
         action={
           <IconButton aria-label="settings">
@@ -49,11 +49,7 @@ const ProductCard = ({ name, description, price, image }) => {
         title={name}
         subheader={`${price}$`}
       />
-      <CardMedia
-        className={classes.media}
-        image={image}
-        title="Paella dish"
-      />
+      <CardMedia className={classes.media} image={image} title="Paella dish" />
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
@@ -64,6 +60,6 @@ const ProductCard = ({ name, description, price, image }) => {
       </CardActions>
     </Card>
   );
-}
+};
 
 export default ProductCard;

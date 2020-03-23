@@ -2,7 +2,7 @@ import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers';
-import { watchProducts } from './sagas';
+import rootSaga from './sagas';
 
 const configureStore = () => {
   const initialState = {};
@@ -15,7 +15,7 @@ const configureStore = () => {
     composeWithDevTools(applyMiddleware(...middleware)),
   );
 
-  sagaMiddleware.run(watchProducts);
+  sagaMiddleware.run(rootSaga);
 
   return store;
 };

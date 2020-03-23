@@ -1,22 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
-import MiniDrawer from '../components/MiniDrawer';
+import MenuContainer from '../containers/MenuContainer';
 
 const AppTemplate = ({ children }) => (
-    <MiniDrawer>
-        <Container>
-         {children}
-        </Container>
-    </MiniDrawer>
+  <MenuContainer>
+    <Container>{children}</Container>
+  </MenuContainer>
 );
 
 AppTemplate.propTypes = {
-    children: PropTypes.node
-}
+  children: PropTypes.node,
+};
 
 AppTemplate.defaultProps = {
-    children: null
-}
+  children: null,
+};
 
 export default AppTemplate;
