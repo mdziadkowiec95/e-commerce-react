@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
@@ -8,7 +9,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
+import ListIcon from '@material-ui/icons/List';
+import HomeIcon from '@material-ui/icons/Home';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
@@ -24,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const NestedMenu = () => {
+const NestedMenu = ({ categories }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -43,9 +45,15 @@ const NestedMenu = () => {
       //   }
       className={classes.root}
     >
-      <ListItem button>
+      <ListItem button component={Link} to="/">
         <ListItemIcon>
-          <SendIcon />
+          <HomeIcon />
+        </ListItemIcon>
+        <ListItemText primary="Home" />
+      </ListItem>
+      <ListItem button component={Link} to="/products">
+        <ListItemIcon>
+          <ListIcon />
         </ListItemIcon>
         <ListItemText primary="All products" />
       </ListItem>
@@ -58,14 +66,22 @@ const NestedMenu = () => {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {['Toys', 'Phones'].map(category => (
-            <ListItem key={category} button className={classes.nested}>
-              <ListItemIcon>
-                <StarBorder />
-              </ListItemIcon>
-              <ListItemText primary={category} />
-            </ListItem>
-          ))}
+          {categories &&
+            categories.length > 0 &&
+            categories.map(category => (
+              <ListItem
+                key={category.id}
+                button
+                className={classes.nested}
+                component={Link}
+                to={`/products?category=${category.fieldName}`}
+              >
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText primary={category.title} />
+              </ListItem>
+            ))}
         </List>
       </Collapse>
     </List>

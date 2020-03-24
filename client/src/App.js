@@ -1,13 +1,18 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ProductsView from './views/ProductsView';
+import HomeView from './views/HomeView';
 import AppTemplate from './templates/AppTemplate';
-import { Provider } from 'react-redux';
-import { configureStore } from './redux';
-import ProductListContainer from './containers/ProductListContainer';
 
 const App = () => (
-  <AppTemplate>
-    <ProductListContainer />
-  </AppTemplate>
+  <Router>
+    <Switch>
+      <AppTemplate>
+        <Route exact path="/" component={HomeView} />
+        <Route path="/products" component={ProductsView} />
+      </AppTemplate>
+    </Switch>
+  </Router>
 );
 
 export default App;

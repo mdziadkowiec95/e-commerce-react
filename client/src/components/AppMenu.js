@@ -5,25 +5,26 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import SettingsIcon from '@material-ui/icons/Settings';
 import NestedMenu from './NestedMenu';
+import MenuDropdown from './MenuDropdown';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+  },
+  navIcons: {
+    display: 'flex',
+    marginLeft: 'auto',
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -78,7 +79,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AppMenu = ({ children }) => {
+const AppMenu = ({ categories, children }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(true);
@@ -113,6 +114,12 @@ const AppMenu = ({ children }) => {
           <Typography variant="h6" noWrap>
             E-commerce
           </Typography>
+          <div className={classes.navIcons}>
+            <IconButton color="inherit" aria-label="add to shopping cart">
+              <ShoppingCartIcon />
+            </IconButton>
+            <MenuDropdown iconComponent={SettingsIcon} />
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -130,7 +137,7 @@ const AppMenu = ({ children }) => {
           </IconButton>
         </div>
         <Divider />
-        <NestedMenu />
+        <NestedMenu categories={categories} />
         {/* <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>

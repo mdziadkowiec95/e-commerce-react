@@ -1,3 +1,4 @@
+import { createSelector } from 'reselect';
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
@@ -9,7 +10,17 @@ const initialState = {
   isLoading: false,
 };
 
-export const productsReducer = (state = initialState, { type, payload }) => {
+export const getProductsFilters = state => state.products.filters;
+export const getProducts = state => state.products.items;
+
+export const getFilteredProducts = createSelector(
+  [getProductsFilters, getProducts],
+  (filters, products) => {
+    return products;
+  },
+);
+
+const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actionTypes.GET_PRODUCTS_REQUEST:
       return {
@@ -28,9 +39,11 @@ export const productsReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         error: payload.error,
-        isLoading: true,
+        isLoading: false,
       };
     default:
       return state;
   }
 };
+
+export default reducer;
