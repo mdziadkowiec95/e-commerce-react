@@ -15,6 +15,22 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SettingsIcon from '@material-ui/icons/Settings';
 import NestedMenu from './NestedMenu';
 import MenuDropdown from './MenuDropdown';
+import { Link } from 'react-router-dom';
+
+const options = [
+  {
+    id: 'navbar-show-orders',
+    label: 'My orders',
+    link: '/myaccount/orders',
+  },
+  {
+    id: 'navbar-logout',
+    label: 'Logout',
+    onClick: e => {
+      alert('Logout');
+    },
+  },
+];
 
 const drawerWidth = 240;
 
@@ -115,10 +131,15 @@ const AppMenu = ({ categories, children }) => {
             E-commerce
           </Typography>
           <div className={classes.navIcons}>
-            <IconButton color="inherit" aria-label="add to shopping cart">
+            <IconButton
+              color="inherit"
+              aria-label="go to shopping cart"
+              component={Link}
+              to="/shopping-cart"
+            >
               <ShoppingCartIcon />
             </IconButton>
-            <MenuDropdown iconComponent={SettingsIcon} />
+            <MenuDropdown iconComponent={SettingsIcon} options={options} />
           </div>
         </Toolbar>
       </AppBar>

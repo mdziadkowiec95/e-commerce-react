@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ProductList = ({ products, isLoading }) => {
+const ProductList = ({ products, isLoading, addToCart }) => {
   const classes = useStyles();
 
   return (
@@ -27,11 +27,7 @@ const ProductList = ({ products, isLoading }) => {
           products.length > 0 &&
           products.map(product => (
             <Grid item xs={12} md={6} lg={4} key={product.id}>
-              <ProductCard
-                name={product.productName}
-                price={product.price}
-                image={product.image[0].fields.file.url}
-              />
+              <ProductCard product={product} addToCart={addToCart} />
             </Grid>
           ))}
       </Grid>

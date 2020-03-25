@@ -6,8 +6,15 @@ import * as fromProducts from '../redux/reducers/products';
 import { bindActionCreators } from 'redux';
 import useQueryParams from '../hooks/useQueryParams';
 import * as fromUI from '../redux/reducers/ui';
+import { addToCart } from '../redux/actions/cart';
 
-const ProductListContainer = ({ categoriesFetched, products, isLoading, getProducts }) => {
+const ProductListContainer = ({
+  categoriesFetched,
+  products,
+  isLoading,
+  getProducts,
+  addToCart,
+}) => {
   const params = useQueryParams();
   const category = params.get('category');
 
@@ -19,7 +26,7 @@ const ProductListContainer = ({ categoriesFetched, products, isLoading, getProdu
     }
   }, [categoriesFetched, category]);
 
-  return <ProductList products={products} isLoading={isLoading} />;
+  return <ProductList products={products} isLoading={isLoading} addToCart={addToCart} />;
 };
 
 const mapStateToProps = state => ({
@@ -28,6 +35,6 @@ const mapStateToProps = state => ({
   categoriesFetched: fromUI.getCategoriesFetched(state),
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getProducts }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getProducts, addToCart }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductListContainer);

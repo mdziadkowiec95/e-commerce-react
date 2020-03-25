@@ -7,8 +7,11 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+import NavigationIcon from '@material-ui/icons/Navigation';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { Fab } from '@material-ui/core';
+import { mapProductToShopingCart } from '../utilities/cart';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,25 +20,18 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     height: 0,
-
     paddingTop: '56.25%', // 16:9
   },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
+  cardActions: {
+    display: 'flex',
+    justifyContent: 'center',
   },
   avatar: {
     backgroundColor: red[500],
   },
 }));
 
-const ProductCard = ({ name, description, price, image }) => {
+const ProductCard = ({ product, addToCart }) => {
   const classes = useStyles();
 
   return (
@@ -46,17 +42,24 @@ const ProductCard = ({ name, description, price, image }) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={name}
-        subheader={`${price}$`}
+        title={product.name}
+        subheader={`$${product.price}`}
       />
-      <CardMedia className={classes.media} image={image} title="Paella dish" />
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+      <CardMedia
+        className={classes.media}
+        image={product.image[0].fields.file.url}
+        title="Paella dish"
+      />
+      <CardActions disableSpacing className={classes.cardActions}>
+        <IconButton
+          onClick={() => addToCart(mapProductToShopingCart(product))}
+          aria-label="add to shopping cart"
+        >
+          <AddShoppingCartIcon />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        <Fab variant="extended" size="medium" color="secondary">
+          ${product.price} - Buy
+        </Fab>
       </CardActions>
     </Card>
   );
