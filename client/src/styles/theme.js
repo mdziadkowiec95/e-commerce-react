@@ -3,11 +3,13 @@ import { pink, blue } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
   palette: {
-    //   primary: {
-    //     main: '#424242',
-    //   },
-    primary: blue,
-    secondary: pink,
+    primary: {
+      main: '#2b2b2b',
+    },
+    // primary: blue,
+    secondary: {
+      main: '#6a1b9a',
+    },
   },
   status: {
     danger: 'orange',
